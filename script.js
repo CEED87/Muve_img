@@ -1,44 +1,51 @@
-var img = document.getElementsByTagName('img');
-var div = document.querySelector('.muve_img');
+var img = document.getElementsByTagName('img')[0];
+// var div = document.querySelector('.muve_img');
+// var body = document.querySelector('body');
 
-
-function imges() {
-    document.addEventListener('mousemove', function (event) {
-        var muveImg = event.target;
-        if (muveImg.tagName === 'IMG') {
-            muveImg.style.cursor = 'pointer';
-            muveImg.addEventListener('mousedown', function() {
-                muvImg(muveImg);
-                getImg(div);
-                hasImg(div);
-            });
-        } 
+// mousedown
+// mousemove
+// mouseup
+function eee(e) {
+    img.style.position = 'absolute';
+    let saveX = e.offsetX;
+    let saveY = e.offsetY; 
+    
+    document.addEventListener('mousemove', function(e) {
+       
+        img.style.position = 'absolute';
+        img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
+        img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
     });
 }
 
-function muvImg(setImg) {
-    setImg.setAttribute('draggable', 'true');
-    setImg.addEventListener('dragstart', function (event) {
-        event.dataTransfer.setData("text", event.target.id);
+img.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+});
+let rect = img.getBoundingClientRect();
+let css = getComputedStyle(img);
+
+img.addEventListener('mousedown',function(e) {
+    let saveX = e.offsetX;
+    let saveY = e.offsetY; 
+    
+    document.addEventListener('mousemove', function(e) {
+        img.style.position = 'absolute';
+        img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
+        img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
     });
-}
+});
 
-function getImg(newImg) {
-    newImg.addEventListener('drop', function (event) {
-        event.preventDefault();
-        var data = event.dataTransfer.getData("text");
-        if (event.target.tagName !== 'IMG') {
-            event.target.appendChild(document.getElementById(data));
-        }
-
+img.addEventListener('mouseup', function(e) {
+    document.addEventListener('mousemove',function() {
+        return false;
     });
-}
+});
 
-function hasImg(getdiv) {
-    getdiv.addEventListener('dragover', function (event) {
-        event.preventDefault();
 
-    });
-}
 
-imges();
+
+       
+
+
+
+
