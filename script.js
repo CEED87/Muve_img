@@ -1,45 +1,55 @@
-var img = document.getElementsByTagName('img')[0];
-// var div = document.querySelector('.muve_img');
+var getImg = document.getElementsByTagName('img');
+var div = document.querySelector('.set_img');
 // var body = document.querySelector('body');
 
 // mousedown
 // mousemove
 // mouseup
-function eee(e) {
+
+
+
+// ================================================================================
+
+  
+div.addEventListener('mouseover', function(e) {
+  if (e.target.tagName === 'IMG') {
+    e.target.style.cursor = 'move';
+  } 
+});
+
+document.onmousedown = function(e) {
+  var img = e.target;
+  img.style.cursor = 'move';
+  // img.style.position = 'absolute';
+if (img.tagName === 'IMG') {
+  console.log(e.target)
+let saveX = e.offsetX;
+let saveY = e.offsetY; 
+let css = getComputedStyle(img);
+img.style.zIndex = 2;
+
+
+document.onmousemove = function(e) {
     img.style.position = 'absolute';
-    let saveX = e.offsetX;
-    let saveY = e.offsetY; 
     
-    document.addEventListener('mousemove', function(e) {
-       
-        img.style.position = 'absolute';
-        img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
-        img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
-    });
+    img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
+    img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
+  };
 }
 
-img.addEventListener('dragstart', function(e) {
-    e.preventDefault();
-});
-let rect = img.getBoundingClientRect();
-let css = getComputedStyle(img);
+img.ondragstart = function() {
+  return false;
+};
 
-img.addEventListener('mousedown',function(e) {
-    let saveX = e.offsetX;
-    let saveY = e.offsetY; 
-    
-    document.addEventListener('mousemove', function(e) {
-        img.style.position = 'absolute';
-        img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
-        img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
-    });
-});
+  img.onmouseup = function(e) {
+    img.style.zIndex = 1;
+    document.onmousemove = function() {
+      return false;
+  };
+};
 
-img.addEventListener('mouseup', function(e) {
-    document.addEventListener('mousemove',function() {
-        return false;
-    });
-});
+};
+
 
 
 
