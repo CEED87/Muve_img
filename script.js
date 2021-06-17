@@ -1,61 +1,37 @@
 var getImg = document.getElementsByTagName('img');
-var div = document.querySelector('.set_img');
-// var body = document.querySelector('body');
+var divFlex = document.querySelector('.pafent_box');
 
-// mousedown
-// mousemove
-// mouseup
-
-
-
-// ================================================================================
-
-  
-div.addEventListener('mouseover', function(e) {
+divFlex.addEventListener('mouseover', function (e) {
   if (e.target.tagName === 'IMG') {
     e.target.style.cursor = 'move';
-  } 
+  }
 });
 
-document.onmousedown = function(e) {
-  var img = e.target;
-  img.style.cursor = 'move';
-  // img.style.position = 'absolute';
-if (img.tagName === 'IMG') {
-  console.log(e.target)
-let saveX = e.offsetX;
-let saveY = e.offsetY; 
-let css = getComputedStyle(img);
-img.style.zIndex = 2;
+divFlex.onmousedown = function (e) {
+  var div = e.target;
+  if (div.tagName === 'IMG') {
+    let saveX = e.offsetX;
+    let saveY = e.offsetY;
+    let css = getComputedStyle(div);
+    div.style.zIndex = 2;
 
 
-document.onmousemove = function(e) {
-    img.style.position = 'absolute';
-    
-    img.style.top = e.pageY-parseInt(css.margin)-saveY+'px';
-    img.style.left = e.pageX-parseInt(css.margin)-saveX+'px';
+    document.onmousemove = function (e) {
+      div.style.position = 'absolute';
+      div.style.top = e.pageY - parseInt(css.margin) - saveY + 'px';
+      div.style.left = e.pageX - parseInt(css.margin) - saveX + 'px';
+    };
+  }
+
+  div.ondragstart = function () {
+    return false;
   };
-}
 
-img.ondragstart = function() {
-  return false;
-};
-
-  img.onmouseup = function(e) {
-    img.style.zIndex = 1;
-    document.onmousemove = function() {
+  div.onmouseup = function (e) {
+    div.style.zIndex = 1;
+    document.onmousemove = function () {
       return false;
+    };
   };
-};
 
 };
-
-
-
-
-
-       
-
-
-
-
