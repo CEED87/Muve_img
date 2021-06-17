@@ -1,5 +1,5 @@
 var getImg = document.getElementsByTagName('img');
-var divFlex = document.querySelector('.pafent_box');
+var divFlex = document.querySelector('.parent_box');
 
 divFlex.addEventListener('mouseover', function (e) {
   if (e.target.tagName === 'IMG') {
